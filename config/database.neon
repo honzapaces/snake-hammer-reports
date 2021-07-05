@@ -1,0 +1,39 @@
+services:
+    doctrineEventManager:
+        factory: Doctrine\Common\EventManager
+    doctrineEntityListenerResolver:
+        factory: Doctrine\ORM\Mapping\DefaultEntityListenerResolver
+    doctrineAnnotationReader:
+        factory: Doctrine\Common\Annotations\AnnotationReader
+    doctrineAnnotationDriver:
+        factory: Doctrine\ORM\Mapping\Driver\AnnotationDriver(@doctrineAnnotationReader, %doctrine.metadata%)
+    doctrineNamingStrategy:
+        factory: Doctrine\ORM\Mapping\UnderscoreNamingStrategy
+    doctrineAnnotationRegistry:
+        factory: Doctrine\Common\Annotations\AnnotationRegistry
+    doctrineConfig:
+        factory: Doctrine\ORM\Tools\Setup::createConfiguration(false, %tempDir%/proxies)
+        setup: 
+            - setMetadataDriverImpl(@doctrineAnnotationDriver)
+            - setNamingStrategy(@doctrineNamingStrategy)
+            - setAutoGenerateProxyClasses(true)
+            - setEntityListenerResolver(@doctrineEntityListenerResolver)
+    doctrine:
+        factory: Doctrine\ORM\EntityManager::create(%doctrine.connection%, @doctrineConfig, @doctrineEventManager)
+        setup: 
+            - Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists')
+parameters: 
+    doctrine:
+        connection:
+            dbname: %db.name%
+            host: %db.host%
+            port: %db.port%
+            user: %db.user%
+            password: %db.pass%
+            driver: pdo_mysql
+        config:
+        
+        metadata:
+            App: %appDir%/Model/Entity
+        secondLevelCache:
+            enabled: false

@@ -1,0 +1,38 @@
+{
+	"name": "snake/hammer_reports",
+	"description": "Reporting application for warhammer game results",
+	"type": "project",
+	"require": {
+		"php": ">= 8.0",
+		"ext-bcmath": "*",
+		"ext-pdo": "*",
+		"ext-json": "*",
+		"doctrine/orm": "^2.9",
+		"nette/application": "^3",
+		"nette/di": "^3",
+		"nette/bootstrap": "^3",
+		"symfony/serializer": "^5",
+		"tracy/tracy": "^2.0",
+		"symfony/property-access": "^5"
+	},
+	"scripts": {
+		"sniff": "php vendor/bin/phpcs -n -d memory_limit=512M --standard=tests/PhpCodeSniffer.xml app/ tests/",
+		"sniff-fix": "php vendor/bin/phpcbf -n -d memory_limit=512M --standard=tests/PhpCodeSniffer.xml app/ tests/",
+		"unit": "php vendor/bin/phpunit"
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Unit\\": "unit/"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"App\\": "App/"
+		}
+	},
+	"require-dev": {
+		"doctrine/migrations": "^2",
+		"symfony/yaml": "^5.3",
+		"doctrine/doctrine-migrations-bundle": "^2"
+	}
+}

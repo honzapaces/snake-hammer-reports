@@ -1,0 +1,14 @@
+services:
+    serializer:
+        factory: Symfony\Component\Serializer\Serializer
+        arguments:
+            - [Symfony\Component\Serializer\Normalizer\ArrayDenormalizer(), Symfony\Component\Serializer\Normalizer\DateTimeNormalizer(), @objectNormalizer]
+            - [Symfony\Component\Serializer\Encoder\JsonEncoder()] 
+    objectNormalizer:
+        factory: App\Model\Serializer\ObjectNormalizer()
+        setup: 
+            - setEntityManager(@doctrine)
+routing: 
+    routes: 
+        '/': Frontend:Homepage:default
+        '/<module>[/<presenter>][/<action>]': Frontend:Homepage:default
