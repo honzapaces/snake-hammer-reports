@@ -25,3 +25,30 @@ parameters:
         pass: pass
 ```
 ***
+
+## How to get there
+
+web browser - http://localhost 
+
+currently hosting example API
+
+## API
+
+GET /admin/entity?name=ENTITY_NAME - all 
+GET /admin/entity?name=ENTITY_NAME&id=X - specific
+
+POST /admin/entity/new?name=ENTITY_NAME
+
+```
+    request body json for sector
+    {
+        "name" : "Segmentum Ultimus"
+    }
+    request body json for sub sector
+    {
+    "name" : "Hexos",
+        "sector_id": 1
+    }
+```
+
+GET (could be DELETE) /admin/entity/delete?name=ENTITY_NAME&id=X
